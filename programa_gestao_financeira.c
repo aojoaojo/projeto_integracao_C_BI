@@ -4,6 +4,7 @@
 
 #define TAMANHO 1024
 #define TAMANHO_MENOR 256
+#define CAMINHO "C:/Users/2211279/Downloads/projeto_integracao_C_BI/geral.csv"
 
 // struct no lista no
 typedef struct no
@@ -89,7 +90,7 @@ void concatenar_tudo(char *linha_inteira, char *geral, char *especifico, float v
 void printar_no_arquivo(char *linha_inteira)
 {
     FILE *geral;
-    geral = fopen("/home/aojoaojo/joao/projeto_integracao_C_BI/geral.csv", "a");
+    geral = fopen(CAMINHO, "a");
     if (geral == NULL)
     {
         printf("Erro ao abrir arquivo");
@@ -105,6 +106,7 @@ void criar_no_geral_escrita(head *cabeca, char *geral, char *especifico, float v
 {
     no *novo;
     novo = (no *)malloc(sizeof(no));
+    novo->proximo = NULL;
     if (novo == NULL)
     {
         printf("Falha ao alocar novo node");
@@ -113,6 +115,14 @@ void criar_no_geral_escrita(head *cabeca, char *geral, char *especifico, float v
 
     if (cabeca->primeiro == NULL)
     {
+        strcpy(novo->class_geral, geral);
+        strcpy(novo->class_especifico, especifico);
+        novo->valor = valor;
+        strcpy(novo->mes, mes);
+        strcpy(novo->linha_inteira, "\0");
+        concatenar_tudo(novo->linha_inteira, geral, especifico, valor, mes);
+        puts(novo->linha_inteira);
+        printar_no_arquivo(novo->linha_inteira);
         cabeca->primeiro = novo;
         return;
     }
@@ -121,7 +131,6 @@ void criar_no_geral_escrita(head *cabeca, char *geral, char *especifico, float v
     while (atual->proximo != NULL)
         atual = atual->proximo;
     atual->proximo = novo;
-    novo->proximo = NULL;
     strcpy(novo->class_geral, geral);
     strcpy(novo->class_especifico, especifico);
     novo->valor = valor;
@@ -480,11 +489,12 @@ int menu(int *opt, head *cabeca)
 void pegar_todo_o_conteudo_do_arquivo(head *cabeca)
 {
     FILE *geral;
-    geral = fopen("/home/aojoaojo/joao/projeto_integracao_C_BI/geral.csv", "r");
+    geral = fopen(CAMINHO, "r");
     if (geral == NULL)
     {
         printf("Erro ao abrir arquivo");
-        exit;
+        fclose(geral);
+        return;
     }
 
     char line[TAMANHO_MENOR];
