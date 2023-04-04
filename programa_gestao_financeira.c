@@ -363,7 +363,7 @@ int menu(int *opt, head *cabeca)
 {
 
     printf("---------------------------------------------------------------------\n");
-    printf("Escolha uma opção:\n");
+    printf("Escolha uma opcao:\n");
     printf("1 - Inserir gasto\n2 - Remover gasto\n3 - Mostrar gastos\n4 - Sair\n");
     scanf("%d", opt);
     if (*opt == 1)
@@ -393,7 +393,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mês:\n");
+            printf("\nInsira o Mes:\n");
             scanf("%s", mes);
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
@@ -403,7 +403,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mês:\n");
+            printf("\nInsira o Mes:\n");
             scanf("%s", mes);
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
@@ -414,7 +414,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mês:\n");
+            printf("\nInsira o Mes:\n");
             scanf("%s", mes);
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
@@ -425,7 +425,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mês:\n");
+            printf("\nInsira o Mes:\n");
             scanf("%s", mes);
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
@@ -436,7 +436,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mês:\n");
+            printf("\nInsira o Mes:\n");
             scanf("%s", mes);
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
@@ -447,7 +447,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mês:\n");
+            printf("\nInsira o Mes:\n");
             scanf("%s", mes);
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
@@ -457,7 +457,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mês:\n");
+            printf("\nInsira o Mes:\n");
             scanf("%s", mes);
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
@@ -479,7 +479,7 @@ int menu(int *opt, head *cabeca)
     }
     else
     {
-        printf("Opção inválida\n");
+        printf("Opção invalida\n");
         return 4;
     }
 
