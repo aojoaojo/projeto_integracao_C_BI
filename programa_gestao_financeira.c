@@ -383,7 +383,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mês:\n");
+            printf("\nInsira o Mes:\n");
             scanf("%s", mes);
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
