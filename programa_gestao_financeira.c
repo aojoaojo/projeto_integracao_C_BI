@@ -4,7 +4,7 @@
 
 #define TAMANHO 1024
 #define TAMANHO_MENOR 256
-#define CAMINHO "C:/Users/2211279/Downloads/projeto_integracao_C_BI/geral.csv"
+#define CAMINHO "geral.csv"
 
 // struct no lista no
 typedef struct no
@@ -359,6 +359,55 @@ char *menu_i_8(int *escolha_2)
         return "0";
 }
 
+char *menu_mes()
+{
+    int num_mes;
+    printf("Insira o número do mês a ser adicionado:\n");
+    printf("1 - Janeiro\n");
+    printf("2 - Fevereiro\n");
+    printf("3 - Marco\n");
+    printf("4 - Abril\n");
+    printf("5 - Maio\n");
+    printf("6 - Junho\n");
+    printf("7 - Julho\n");
+    printf("8 - Agosto\n");
+    printf("9 - Setembro\n");
+    printf("10 - Outubro\n");
+    printf("11 - Novembro\n");
+    printf("12 - Dezembro\n");
+    printf("Mes:\n");
+    scanf("%d", &num_mes);
+    if (num_mes == 1)
+        return "Janeiro";
+    else if (num_mes == 2)
+        return "Fevereiro";
+    else if (num_mes == 3)
+        return "Março";
+    else if (num_mes == 4)
+        return "Abril";
+    else if (num_mes == 5)
+        return "Maio";
+    else if (num_mes == 6)
+        return "Junho";
+    else if (num_mes == 7)
+        return "Julho";
+    else if (num_mes == 8)
+        return "Agosto";
+    else if (num_mes == 9)
+        return "Setembro";
+    else if (num_mes == 10)
+        return "Outubro";
+    else if (num_mes == 11)
+        return "Novembro";
+    else if (num_mes == 12)
+        return "Dezembro";
+    else
+    {
+        printf("Número inválido, insira novamente\n");
+        return menu_mes();
+    }
+}
+
 int menu(int *opt, head *cabeca)
 {
 
@@ -383,8 +432,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mes:\n");
-            scanf("%s", mes);
+            strcpy(mes, menu_mes());
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
         case 2:
@@ -393,8 +441,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mes:\n");
-            scanf("%s", mes);
+            strcpy(mes, menu_mes());
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
         case 3:
@@ -403,8 +450,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mes:\n");
-            scanf("%s", mes);
+            strcpy(mes, menu_mes());
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
         case 4:
@@ -414,8 +460,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mes:\n");
-            scanf("%s", mes);
+            strcpy(mes, menu_mes());
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
         case 5:
@@ -425,8 +470,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mes:\n");
-            scanf("%s", mes);
+            strcpy(mes, menu_mes());
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
         case 6:
@@ -436,8 +480,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mes:\n");
-            scanf("%s", mes);
+            strcpy(mes, menu_mes());
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
         case 7:
@@ -447,8 +490,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mes:\n");
-            scanf("%s", mes);
+            strcpy(mes, menu_mes());
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
         case 8:
@@ -457,8 +499,7 @@ int menu(int *opt, head *cabeca)
                 break;
             printf("\nInsira o valor:\n");
             scanf("%f", &valor);
-            printf("\nInsira o Mes:\n");
-            scanf("%s", mes);
+            strcpy(mes, menu_mes());
             criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
             break;
         default:
