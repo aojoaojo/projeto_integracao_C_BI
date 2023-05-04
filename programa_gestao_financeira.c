@@ -27,6 +27,45 @@ typedef struct cabeca
 
 } head;
 
+// create a function that tries to open a file called "categorias.txt" and if it doesn't exist, create it
+void criar_arquivo_categorias()
+{
+    FILE *categorias;
+    categorias = fopen("categorias.txt", "r");
+    if (categorias == NULL)
+    {
+        categorias = fopen("categorias.txt", "w");
+        if (categorias == NULL)
+        {
+            printf("Erro ao criar arquivo");
+            exit;
+        }
+        fprintf(categorias, "alimentacao\n");
+        fprintf(categorias, "   supermercado\n");
+        fprintf(categorias, "   restaurante\n");
+        fprintf(categorias, "   outros\n");
+        fprintf(categorias, "moradia\n");
+        fprintf(categorias, "   aluguel\n");
+        fprintf(categorias, "   condominio\n");
+        fprintf(categorias, "   outros\n");
+        fprintf(categorias, "transporte\n");
+        fprintf(categorias, "   onibus\n");
+        fprintf(categorias, "   uber\n");
+        fprintf(categorias, "   outros\n");
+        fprintf(categorias, "lazer\n");
+        fprintf(categorias, "   parque\n");
+        fprintf(categorias, "   cinema\n");
+        fprintf(categorias, "   outros\n");
+        fprintf(categorias, "outros\n");
+        fprintf(categorias, "   outros\n");
+        fclose(categorias);
+    }
+    else
+    {
+        fclose(categorias);
+    }
+}
+
 void mostrar_lista(head *cabeca)
 {
     no *atual;
@@ -154,38 +193,190 @@ void liberar_memoria(head *cabeca)
     }
     free(cabeca);
 }
+
+void remover_ultima_linha()
+{
+    FILE *fp, *fp_temp;
+    int ch, count;
+
+    // Open the original file for reading
+    fp = fopen(CAMINHO, "r");
+    if (fp == NULL)
+    {
+        printf("Error: could not open file %s\n", CAMINHO);
+        return;
+    }
+
+    // Count the number of lines in the file
+    count = 0;
+    while ((ch = fgetc(fp)) != EOF)
+    {
+        if (ch == '\n')
+        {
+            count++;
+        }
+    }
+
+    // Close the file and reopen it for writing
+    fclose(fp);
+    fp = fopen(CAMINHO, "r");
+    if (fp == NULL)
+    {
+        printf("Error: could not open file %s\n", CAMINHO);
+        return;
+    }
+    fp_temp = fopen("temp.csv", "w");
+    if (fp_temp == NULL)
+    {
+        printf("Error: could not create temporary file\n");
+        fclose(fp);
+        return;
+    }
+
+    // Copy all lines except the last one to the temporary file
+    int line = 0;
+    while ((ch = fgetc(fp)) != EOF)
+    {
+        if (ch == '\n')
+        {
+            line++;
+        }
+        if (line != count)
+        {
+            fputc(ch, fp_temp);
+        }
+    }
+
+    // Close the files and replace the original file with the temporary file
+    fclose(fp);
+    fclose(fp_temp);
+    remove(CAMINHO);
+    rename("temp.csv", CAMINHO);
+}
+
+char *returns_the_line_if_it_do_not_start_with_space_on_a_file(char *file_name, int number_line)
+{
+    FILE *file;
+    file = fopen(file_name, "r");
+    if (file == NULL)
+    {
+        printf("Erro ao abrir arquivo");
+        exit;
+    }
+    char line[100];
+    int i = 0;
+    while (fgets(line, sizeof(line), file))
+    {
+        if (i == number_line)
+        {
+            if (line[0] != ' ')
+            {
+                return line;
+                fclose(file);
+            }
+        }
+        i++;
+    }
+    fclose(file);
+    return NULL;
+}
+
+char *returns_the_line_if_it_starts_with_space(char *file_name, int number_line){
+    FILE *file;
+    file = fopen(file_name, "r");
+    if (file == NULL)
+    {
+        printf("Erro ao abrir arquivo");
+        exit;
+    }
+    char line[40];
+    int i = 0;
+    while (fgets(line, sizeof(line), file))
+    {
+        if (i == number_line)
+        {
+            if (line[0] == ' ')
+            {
+                return line;
+                fclose(file);
+            }
+        }
+        i++;
+    }
+    fclose(file);
+    return NULL;
+}
+
+// char *removes_space_from_the_beginning_of_a_string(char *string)
+// {
+//     int i = 0;
+//     while (string[i] == ' ')
+//     {
+//         i++;
+//     }
+//     return string + i;
+// }
+
 char *menu_e_1(int *escolha_geral)
 {
-    char e1[] = "Alimentacao", e2[] = "Saude", e3[] = "Transporte", e4[] = "Pessoal", e5[] = "Casa", e6[] = "Viagens", e7[] = "Contas", e8[] = "Investidos", e0[] = "Para retornar";
+    int i = 0;
+    // create a vector of strings that will storage the name of the classes that will be taken at the categorias.txt file
+    char **vetor;
+    // create variables that will storage the name of the classes that will be taken at the categorias.txt file
+    char line[40];
+    // create a pointer to the file categorias.txt
+    FILE *categorias;
+    // open the file categorias.txt
+    categorias = fopen("categorias.txt", "r");
+    if (categorias == NULL)
+    {
+        printf("Erro ao abrir arquivo");
+        exit;
+    }
+    // read the file categorias.txt and store the name of the classes in the variables created before
+    // the loop will stop when the end of the file is reached
+    // the loop will also reallocate the vector of strings when the number of classes is bigger than the size of the vector
+    // the fscanf will read the file and store the name of the classes in the variables created before
+    // the name of the class is the first thing in the line, so the fscanf will read the first thing in the line untill the ";" and store it in the variable
+
+    vetor = (char **)malloc(sizeof(char *));
+    while (fgets(line, 40, categorias) != EOF)
+    {
+        if (returns_the_line_if_it_do_not_start_with_space_on_a_file("categorias.txt", i) != NULL)
+        {
+            strcpy(line, returns_the_line_if_it_do_not_start_with_space_on_a_file("categorias.txt", i));
+        }
+        else
+        {
+            // strcpy(line, removes_space_from_the_beginning_of_a_string(returns_the_line_if_it_starts_with_space("categorias.txt", i)));   
+            strcpy(line, returns_the_line_if_it_starts_with_space("categorias.txt", i));   
+        }
+        
+        if (i == 0)
+        {
+            vetor[i] = (char *)malloc(sizeof(char) * (strlen(line) + 1));
+            strcpy(vetor[i], line);
+        }
+        else
+        {
+            vetor = (char **)realloc(vetor, sizeof(char *) * (i + 1));
+            vetor[i] = (char *)malloc(sizeof(char) * (strlen(line) + 1));
+            strcpy(vetor[i], line);
+        }
+        i++;
+    }
+
+    // char e1[] = "Alimentacao", e2[] = "Saude", e3[] = "Transporte", e4[] = "Pessoal", e5[] = "Casa", e6[] = "Viagens", e7[] = "Contas", e8[] = "Investidos", e0[] = "Para retornar";
     printf("Escolha a Classe geral que deseja incluir:\n");
-    printf("1 - %s\n", e1);
-    printf("2 - %s\n", e2);
-    printf("3 - %s\n", e3);
-    printf("4 - %s\n", e4);
-    printf("5 - %s\n", e5);
-    printf("6 - %s\n", e6);
-    printf("7 - %s\n", e7);
-    printf("8 - %s\n", e8);
-    printf("0 - %s\n", e0);
+    for (int j = 0; j < i; j++)
+    {
+        printf("%d - %s\n", j, vetor[j]);
+    }
+    printf("Digite o número:\n");
     scanf("%d", escolha_geral);
-    if (*escolha_geral == 1)
-        return "Alimentacao";
-    else if (*escolha_geral == 2)
-        return "Saude";
-    else if (*escolha_geral == 3)
-        return "Transporte";
-    else if (*escolha_geral == 4)
-        return "Pessoal";
-    else if (*escolha_geral == 5)
-        return "Casa";
-    else if (*escolha_geral == 6)
-        return "Viagens";
-    else if (*escolha_geral == 7)
-        return "Contas";
-    else if (*escolha_geral == 8)
-        return "Investidos";
-    else
+    if (*vetor[*escolha_geral] == NULL)
         return "0";
+    return vetor[*escolha_geral];
 }
 
 char *menu_i_1(int *escolha_2)
@@ -359,6 +550,7 @@ char *menu_i_8(int *escolha_2)
         return "0";
 }
 
+// Função para selecionar o mês
 char *menu_mes()
 {
     int num_mes;
@@ -413,7 +605,7 @@ int menu(int *opt, head *cabeca)
 
     printf("---------------------------------------------------------------------\n");
     printf("Escolha uma opcao:\n");
-    printf("1 - Inserir gasto\n2 - Remover gasto\n3 - Mostrar gastos\n4 - Sair\n");
+    printf("1 - Inserir gasto\n2 - Remover ultimo gasto\n3 - Mostrar gastos\n4 - Sair\n");
     scanf("%d", opt);
     if (*opt == 1)
     {
@@ -507,7 +699,20 @@ int menu(int *opt, head *cabeca)
         }
     }
     else if (*opt == 2)
-        printf("2\n");
+    {
+        char delete;
+        printf("Tem certeza que deseja remover o ultimo gasto? S/N\n");
+        scanf("%*c%c", &delete);
+        if (delete == 'S' || delete == 's')
+        {
+            remover_ultima_linha();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
     else if (*opt == 3)
     {
         system("clear");
@@ -595,7 +800,7 @@ void separar_linha(head *cabeca)
 
 int main(int argc, char const *argv[])
 {
-
+    criar_arquivo_categorias();
     int opcao_1;
     head *lista = (head *)malloc(sizeof(head));
     if (lista == NULL)
