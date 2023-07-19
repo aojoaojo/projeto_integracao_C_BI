@@ -36,10 +36,27 @@ void mostrar_lista(head *cabeca)
         printf("Cabeça está vazia\n");
         return;
     }
+
+    int count = 0;
     while (atual != NULL)
     {
-        // printf("linha inteira:%s\n", atual->linha_inteira);
-        printf("geral:%s\n", atual->class_geral);
+        count++;
+        atual = atual->proximo;
+    }
+
+    if (count > 5)
+    {
+        int skipCount = count - 5;
+        atual = cabeca->primeiro;
+        while (skipCount > 0)
+        {
+            atual = atual->proximo;
+            skipCount--;
+        }
+    }
+
+    while (atual != NULL)
+    {
         printf("    especifico:%s\n", atual->class_especifico);
         printf("        valor:%.2f\n", atual->valor);
         printf("            mes:%s\n\n", atual->mes);
