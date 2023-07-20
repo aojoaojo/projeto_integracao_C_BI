@@ -1,0 +1,40 @@
+Alimentação
+    Mercado
+    Restaurante
+    Barzinho
+Saúde
+    Cosméticos
+    Medicamentos
+    Aparelho
+    Dentista
+    Cassi
+Transporte
+    Gasolina
+    Carro Seguro
+    IPVA
+    Carro Gasto
+    Uber
+Pessoal
+    Celular
+    Roupa
+    Presentes
+    Extra
+    Formatura Lili
+    Jogos
+Casa
+    Utensílios
+    Internet
+    Luz
+    Condomínio
+    Reforma/ Móveis
+    TV
+    IPTU
+    Gás
+Viagens
+    Passagem/ Pct
+    Local
+Contas
+    DAS
+    Taxa cartão
+Cartão de Crédito
+    Cartão de Crédito
