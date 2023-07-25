@@ -149,7 +149,8 @@ void searchAndPrintNodesWithParent(TreeNode *node, const char *parentString)
     // Pesquisar nos filhos do nó atual
     for (int i = 0; i < MAX_CHILDREN; i++)
     {
-        searchAndPrintNodesWithParent(node->children[i], parentString);
+        if (node->children[i] != NULL)
+            searchAndPrintNodesWithParent(node->children[i], parentString);        
     }
 }
 
@@ -191,6 +192,26 @@ FILE *openFile(const char *filename)
     return file;
 }
 
+void removeLeadingSpaces(char* str) {
+    int len = strlen(str);
+    int i, j;
+
+    // Find the index of the first non-space character
+    for (i = 0; i < len; i++) {
+        if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n') {
+            break;
+        }
+    }
+
+    // Shift the string to the left, removing leading spaces
+    for (j = 0; i < len; i++, j++) {
+        str[j] = str[i];
+    }
+
+    // Add null terminator to end the string
+    str[j] = '\0';
+}
+
 TreeNode *readFileAndCreateTree(FILE *file, TreeNode *root)
 {
     char line[100];
@@ -211,6 +232,7 @@ TreeNode *readFileAndCreateTree(FILE *file, TreeNode *root)
         else
         {
             line[strcspn(line, "\n")] = '\0';
+            removeLeadingSpaces(line);
             TreeNode *grandchild = createNode(line, parent);
             addChild(parent, grandchild);
         }

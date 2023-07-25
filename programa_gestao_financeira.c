@@ -179,10 +179,14 @@ void liberar_memoria(head *cabeca)
 void menu_i(TreeNode *root, TreeNode *geral_escolhido, head *cabeca)
 {
     int escolha;
+    system("clear");
+    printf("Sua escolha foi: %s\n\n", geral_escolhido->data);
     printf("Escolha a Classe específica:\n");
+    cont = 1;
     searchAndPrintNodesWithParent(root, geral_escolhido->data);
     scanf("%d", &escolha);
-    TreeNode *especifico_escolhido = returnNodeByIndex(root, geral_escolhido->data, escolha);
+    system("clear");
+    TreeNode *especifico_escolhido = geral_escolhido->children[escolha - 1];
     printf("Sua escolha: %s\n", especifico_escolhido->data);
     menuValor(geral_escolhido->data, especifico_escolhido->data, cabeca);
 }
@@ -204,7 +208,13 @@ void menu_e(head *cabeca)
     printf("Escolha a Classe geral:\n");
     searchAndPrintNodesWithParent(root, parentValueToSearch);
     scanf("%d", &escolha);
-    TreeNode *geral_escolhido = returnNodeByIndex(root, parentValueToSearch, escolha);
+    TreeNode *geral_escolhido = root->children[escolha - 1];
+    if (root->children[escolha - 1] == NULL)
+    {
+        printf("Opção inválida\n");
+        return;
+    }
+    
     printf("Sua escolha: %s\n", geral_escolhido->data);
     menu_i(root, geral_escolhido, cabeca);
 }
