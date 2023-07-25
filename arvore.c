@@ -153,6 +153,33 @@ void searchAndPrintNodesWithParent(TreeNode *node, const char *parentString)
     }
 }
 
+TreeNode *returnNodeByIndex(TreeNode *node, const char *parentString, int escolha)
+{
+    if (node == NULL)
+    {
+        return NULL;
+    }
+
+    if (node->parent != NULL && strcmp(node->parent->data, parentString) == 0)
+    {
+        printf("%d - %s\n", cont, node->data);
+        if (escolha == cont)
+        {
+            return node;
+        }
+
+        cont++;
+    }
+
+    // Pesquisar nos filhos do nó atual
+    for (int i = 0; i < MAX_CHILDREN; i++)
+    {
+        searchAndPrintNodesWithParent(node->children[i], parentString);
+    }
+
+    return NULL;
+}
+
 FILE *openFile(const char *filename)
 {
     FILE *file = fopen(filename, "r");
@@ -191,20 +218,21 @@ TreeNode *readFileAndCreateTree(FILE *file, TreeNode *root)
     return root;
 }
 
-int main()
-{
-    FILE *file = openFile("arqOpcoes.txt");
+// int main()
+// {
+//     FILE *file = openFile("arqOpcoes.txt");
 
-    TreeNode *root = NULL;
-    root = readFileAndCreateTree(file, root);
+//     TreeNode *root = NULL;
+//     root = readFileAndCreateTree(file, root);
 
-    fclose(file);
+//     fclose(file);
 
-    const char *parentValueToSearch = "pai de todos";
-    searchAndPrintNodesWithParent(root, parentValueToSearch);
+//     const char *parentValueToSearch = "pai de todos";
+//     cont = 1;
+//     searchAndPrintNodesWithParent(root, parentValueToSearch);
 
-    // Liberar a memória da árvore
-    freeTree(root);
+//     // Liberar a memória da árvore
+//     freeTree(root);
 
-    return 0;
-}
+//     return 0;
+// }

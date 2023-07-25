@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "arvore.h"
 
 #define TAMANHO 1024
 #define TAMANHO_MENOR 256
@@ -26,6 +27,9 @@ typedef struct cabeca
     no *primeiro;
 
 } head;
+
+void menuValor(char *geral_escolhido, char *especifico_escolhido, head *cabeca);
+const char *menu_mes();
 
 void mostrar_lista(head *cabeca)
 {
@@ -171,212 +175,51 @@ void liberar_memoria(head *cabeca)
     }
     free(cabeca);
 }
-char *menu_e_1(int *escolha_geral)
+
+void menu_i(TreeNode *root, TreeNode *geral_escolhido, head *cabeca)
 {
-    char e1[] = "Alimentacao", e2[] = "Saude", e3[] = "Transporte", e4[] = "Pessoal", e5[] = "Casa", e6[] = "Viagens", e7[] = "Contas", e8[] = "Investidos", e0[] = "Para retornar";
-    printf("Escolha a Classe geral que deseja incluir:\n");
-    printf("1 - %s\n", e1);
-    printf("2 - %s\n", e2);
-    printf("3 - %s\n", e3);
-    printf("4 - %s\n", e4);
-    printf("5 - %s\n", e5);
-    printf("6 - %s\n", e6);
-    printf("7 - %s\n", e7);
-    printf("8 - %s\n", e8);
-    printf("0 - %s\n", e0);
-    scanf("%d", escolha_geral);
-    if (*escolha_geral == 1)
-        return "Alimentacao";
-    else if (*escolha_geral == 2)
-        return "Saude";
-    else if (*escolha_geral == 3)
-        return "Transporte";
-    else if (*escolha_geral == 4)
-        return "Pessoal";
-    else if (*escolha_geral == 5)
-        return "Casa";
-    else if (*escolha_geral == 6)
-        return "Viagens";
-    else if (*escolha_geral == 7)
-        return "Contas";
-    else if (*escolha_geral == 8)
-        return "Investidos";
-    else
-        return "0";
+    int escolha;
+    printf("Escolha a Classe específica:\n");
+    searchAndPrintNodesWithParent(root, geral_escolhido->data);
+    scanf("%d", &escolha);
+    TreeNode *especifico_escolhido = returnNodeByIndex(root, geral_escolhido->data, escolha);
+    printf("Sua escolha: %s\n", especifico_escolhido->data);
+    menuValor(geral_escolhido->data, especifico_escolhido->data, cabeca);
 }
 
-char *menu_i_1(int *escolha_2)
+void menu_e(head *cabeca)
 {
+    int escolha;
+    FILE *file = openFile("arqOpcoes.txt");
+    if (file == NULL)
+    {
+        printf("Erro ao abrir arquivo");
+        exit;
+    }
+    TreeNode *root = NULL;
+    root = readFileAndCreateTree(file, root);
 
-    char f1[] = "Mercado", f2[] = "Barzinho", f3[] = "Restaurante";
-    printf("Escolha a Classe específica que deseja incluir:\n");
-    printf("1 - %s\n", f1);
-    printf("2 - %s\n", f2);
-    printf("3 - %s\n", f3);
-    printf("0 - Para retornar\n");
-    scanf("%d", escolha_2);
-    if (*escolha_2 == 1)
-        return "Mercado";
-    else if (*escolha_2 == 2)
-        return "Barzinho";
-    else if (*escolha_2 == 3)
-        return "Restaurante";
-    else
-        return "0";
-}
-
-char *menu_i_2(int *escolha_2)
-{
-    char g1[] = "Cosmeticos", g2[] = "Medicamentos", g3[] = "Aparelho Auditivo", g4[] = "Dentista", g5[] = "Cassi";
-    printf("Escolha a Classe específica que deseja incluir:\n");
-    printf("1 - %s\n", g1);
-    printf("2 - %s\n", g2);
-    printf("3 - %s\n", g3);
-    printf("4 - %s\n", g4);
-    printf("5 - %s\n", g5);
-    printf("0 - Para retornar\n");
-    scanf("%d", escolha_2);
-    if (*escolha_2 == 1)
-        return "Cosmeticos";
-    else if (*escolha_2 == 2)
-        return "Medicamentos";
-    else if (*escolha_2 == 3)
-        return "Aparelho Auditivo";
-    else if (*escolha_2 == 4)
-        return "Dentista";
-    else if (*escolha_2 == 5)
-        return "Cassi";
-    else
-        return "0";
-}
-char *menu_i_3(int *escolha_2)
-{
-    char h1[] = "Gasolina", h2[] = "Carro Seguro", h3[] = "IPVA", h4[] = "Carro Gasto", h5[] = "Uber";
-    printf("Escolha a Classe específica que deseja incluir:\n");
-    printf("1 - %s\n", h1);
-    printf("2 - %s\n", h2);
-    printf("3 - %s\n", h3);
-    printf("4 - %s\n", h4);
-    printf("5 - %s\n", h5);
-    printf("0 - Para retornar\n");
-    scanf("%d", escolha_2);
-    if (*escolha_2 == 1)
-        return "Gasolina";
-    else if (*escolha_2 == 2)
-        return "Carro Seguro";
-    else if (*escolha_2 == 3)
-        return "IPVA";
-    else if (*escolha_2 == 4)
-        return "Carro Gasto";
-    else if (*escolha_2 == 5)
-        return "Uber";
-    else
-        return "0";
-}
-char *menu_i_4(int *escolha_2)
-{
-    char i1[] = "Celular", i2[] = "Roupa", i3[] = "Presentes", i4[] = "Extra", i5[] = "Formatura Lili", i6[] = "Jogos";
-    printf("Escolha a Classe específica que deseja incluir:\n");
-    printf("1 - %s\n", i1);
-    printf("2 - %s\n", i2);
-    printf("3 - %s\n", i3);
-    printf("4 - %s\n", i4);
-    printf("5 - %s\n", i5);
-    printf("6 - %s\n", i6);
-    printf("0 - Para retornar\n");
-    scanf("%d", escolha_2);
-    if (*escolha_2 == 1)
-        return "Celular";
-    else if (*escolha_2 == 2)
-        return "Roupa";
-    else if (*escolha_2 == 3)
-        return "Presentes";
-    else if (*escolha_2 == 4)
-        return "Extra";
-    else if (*escolha_2 == 5)
-        return "Formatura Lili";
-    else if (*escolha_2 == 6)
-        return "Jogos";
-    else
-        return "0";
-}
-char *menu_i_5(int *escolha_2)
-{
-    char j1[] = "Utensilios", j2[] = "Internet", j3[] = "Luz", j4[] = "Condominio", j5[] = "Reforma/ Moveis", j6[] = "TV", j7[] = "IPTU", j8[] = "Gas";
-    printf("Escolha a Classe específica que deseja incluir:\n");
-    printf("1 - %s\n", j1);
-    printf("2 - %s\n", j2);
-    printf("3 - %s\n", j3);
-    printf("4 - %s\n", j4);
-    printf("5 - %s\n", j5);
-    printf("6 - %s\n", j6);
-    printf("7 - %s\n", j7);
-    printf("8 - %s\n", j8);
-    printf("0 - Para retornar\n");
-    scanf("%d", escolha_2);
-    if (*escolha_2 == 1)
-        return "Utensilios";
-    else if (*escolha_2 == 2)
-        return "Internet";
-    else if (*escolha_2 == 3)
-        return "Luz";
-    else if (*escolha_2 == 4)
-        return "Condominio";
-    else if (*escolha_2 == 5)
-        return "Reforma/ Moveis";
-    else if (*escolha_2 == 6)
-        return "TV";
-    else if (*escolha_2 == 7)
-        return "IPTU";
-    else if (*escolha_2 == 8)
-        return "Gas";
-    else
-        return "0";
-}
-char *menu_i_6(int *escolha_2)
-{
-    char k1[] = "Passagem/ Pct", k2[] = "Local";
-    printf("Escolha a Classe específica que deseja incluir:\n");
-    printf("1 - %s\n", k1);
-    printf("2 - %s\n", k2);
-    printf("0 - Para retornar\n");
-    scanf("%d", escolha_2);
-    if (*escolha_2 == 1)
-        return "Passagem/ Pct";
-    else if (*escolha_2 == 2)
-        return "Local";
-    else
-        return "0";
-}
-char *menu_i_7(int *escolha_2)
-{
-    char l1[] = "DAS", l2[] = "Taxa Cartao";
-    printf("Escolha a Classe específica que deseja incluir:\n");
-    printf("1 - %s\n", l1);
-    printf("2 - %s\n", l2);
-    printf("0 - Para retornar\n");
-    scanf("%d", escolha_2);
-    if (*escolha_2 == 1)
-        return "DAS";
-    else if (*escolha_2 == 2)
-        return "Taxa Cartao";
-    else
-        return "0";
-}
-char *menu_i_8(int *escolha_2)
-{
-    char m1[] = "Investidos";
-    printf("Escolha a Classe específica que deseja incluir:\n");
-    printf("1 - %s\n", m1);
-    printf("0 - Para retornar\n");
-    scanf("%d", escolha_2);
-    if (*escolha_2 == 1)
-        return "Investidos";
-    else
-        return "0";
+    fclose(file);
+    char parentValueToSearch[12] = "pai de todos";
+    printf("Escolha a Classe geral:\n");
+    searchAndPrintNodesWithParent(root, parentValueToSearch);
+    scanf("%d", &escolha);
+    TreeNode *geral_escolhido = returnNodeByIndex(root, parentValueToSearch, escolha);
+    printf("Sua escolha: %s\n", geral_escolhido->data);
+    menu_i(root, geral_escolhido, cabeca);
 }
 
-char *menu_mes()
+void menuValor(char *geral_escolhido, char *especifico_escolhido, head *cabeca)
+{
+    float valor;
+    char mes[10] = "\0";
+    printf("\nInsira o valor:\n");
+    scanf("%f", &valor);
+    strcpy(mes, menu_mes()) ;
+    criar_no_geral_escrita(cabeca, geral_escolhido, especifico_escolhido, valor, mes);
+}
+
+const char *menu_mes()
 {
     int num_mes;
     printf("Insira o número do mês a ser adicionado:\n");
@@ -430,99 +273,10 @@ int menu(int *opt, head *cabeca)
 
     printf("---------------------------------------------------------------------\n");
     printf("Escolha uma opcao:\n");
-    printf("1 - Inserir gasto\n2 - Remover gasto\n3 - Mostrar gastos\n4 - Sair\n");
+    printf("1 - Inserir registro\n2 - Remover último registro\n3 - Mostrar registros\n4 - Sair\n");
     scanf("%d", opt);
     if (*opt == 1)
-    {
-        int escolha_geral;
-        int escolha_2;
-        char geral[TAMANHO_MENOR] = "\0";
-        char especifico[TAMANHO_MENOR] = "\0";
-        char mes[10] = "\0";
-        float valor;
-        strcpy(geral, menu_e_1(&escolha_geral));
-        switch (escolha_geral)
-        {
-        case 1:
-            strcpy(especifico, menu_i_1(&escolha_2));
-            if (escolha_2 == 0)
-                break;
-            printf("\nInsira o valor:\n");
-            scanf("%f", &valor);
-            strcpy(mes, menu_mes());
-            criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
-            break;
-        case 2:
-            strcpy(especifico, menu_i_2(&escolha_2));
-            if (escolha_2 == 0)
-                break;
-            printf("\nInsira o valor:\n");
-            scanf("%f", &valor);
-            strcpy(mes, menu_mes());
-            criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
-            break;
-        case 3:
-            strcpy(especifico, menu_i_3(&escolha_2));
-            if (escolha_2 == 0)
-                break;
-            printf("\nInsira o valor:\n");
-            scanf("%f", &valor);
-            strcpy(mes, menu_mes());
-            criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
-            break;
-        case 4:
-
-            strcpy(especifico, menu_i_4(&escolha_2));
-            if (escolha_2 == 0)
-                break;
-            printf("\nInsira o valor:\n");
-            scanf("%f", &valor);
-            strcpy(mes, menu_mes());
-            criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
-            break;
-        case 5:
-
-            strcpy(especifico, menu_i_5(&escolha_2));
-            if (escolha_2 == 0)
-                break;
-            printf("\nInsira o valor:\n");
-            scanf("%f", &valor);
-            strcpy(mes, menu_mes());
-            criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
-            break;
-        case 6:
-
-            strcpy(especifico, menu_i_6(&escolha_2));
-            if (escolha_2 == 0)
-                break;
-            printf("\nInsira o valor:\n");
-            scanf("%f", &valor);
-            strcpy(mes, menu_mes());
-            criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
-            break;
-        case 7:
-
-            strcpy(especifico, menu_i_7(&escolha_2));
-            if (escolha_2 == 0)
-                break;
-            printf("\nInsira o valor:\n");
-            scanf("%f", &valor);
-            strcpy(mes, menu_mes());
-            criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
-            break;
-        case 8:
-            strcpy(especifico, menu_i_8(&escolha_2));
-            if (escolha_2 == 0)
-                break;
-            printf("\nInsira o valor:\n");
-            scanf("%f", &valor);
-            strcpy(mes, menu_mes());
-            criar_no_geral_escrita(cabeca, geral, especifico, valor, mes);
-            break;
-        default:
-            break;
-        }
-    }
+        menu_e(cabeca);
     else if (*opt == 2)
         printf("2\n");
     else if (*opt == 3)
