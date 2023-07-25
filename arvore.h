@@ -24,7 +24,6 @@ void freeTree(TreeNode *node);
 TreeNode *searchTreeNode(TreeNode *node, const char *data);
 TreeNode *searchByParent(TreeNode *node, const char *parentValue);
 void searchAndPrintNodesWithParent(TreeNode *node, const char *parentString);
-TreeNode *returnNodeByIndex(TreeNode *node, const char *parentString, int escolha);
 FILE *openFile(const char *filename);
 TreeNode *readFileAndCreateTree(FILE *file, TreeNode *root);
 
